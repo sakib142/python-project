@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Wine, Review, Cluster
+from .models import Course, Review, Cluster
 
 class ReviewAdmin(admin.ModelAdmin):
     model = Review
@@ -14,6 +14,6 @@ class ClusterAdmin(admin.ModelAdmin):
     list_display = ['name', 'get_members']
 
     
-admin.site.register(Wine)
+admin.site.register(Course)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(Cluster, ClusterAdmin)

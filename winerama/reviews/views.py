@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from .models import Review, Wine, Cluster
+from .models import Review, Course, Cluster
 from .forms import ReviewForm
 from .suggestions import update_clusters
 
@@ -22,19 +22,19 @@ def review_detail(request, review_id):
 
 
 def wine_list(request):
-    wine_list = Wine.objects.order_by('-name')
+    wine_list = Course.objects.order_by('-name')
     context = {'wine_list':wine_list}
     return render(request, 'reviews/wine_list.html', context)
 
 
 def wine_detail(request, wine_id):
-    wine = get_object_or_404(Wine, pk=wine_id)
+    wine = get_object_or_404(Course, pk=wine_id)
     form = ReviewForm()
     return render(request, 'reviews/wine_detail.html', {'wine': wine, 'form': form})
 
 @login_required
 def add_review(request, wine_id):
-    wine = get_object_or_404(Wine, pk=wine_id)
+    wine = get_object_or_404(Course, pk=wine_id)
     form = ReviewForm(request.POST)
     if form.is_valid():
         rating = form.cleaned_data['rating']
@@ -94,7 +94,7 @@ def user_recommendation_list(request):
     
     # then get a wine list including the previous IDs, order by rating
     wine_list = sorted(
-        list(Wine.objects.filter(id__in=other_users_reviews_wine_ids)), 
+        list(Course.objects.filter(id__in=other_users_reviews_wine_ids)),
         key=lambda x: x.average_rating, 
         reverse=True
     )
