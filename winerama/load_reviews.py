@@ -7,14 +7,14 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "winerama.settings")
 import django
 django.setup()
 
-from reviews.models import Review, Wine 
+from reviews.models import Review, Course
 
 
 def save_review_from_row(review_row):
     review = Review()
     review.id = review_row[0]
     review.user_name = review_row[1]
-    review.wine = Wine.objects.get(id=review_row[2])
+    review.wine = Course.objects.get(id=review_row[2])
     review.rating = review_row[3]
     review.pub_date = datetime.datetime.now()
     review.comment = review_row[4]
