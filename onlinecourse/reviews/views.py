@@ -24,13 +24,13 @@ def review_detail(request, review_id):
 def wine_list(request):
     wine_list = Course.objects.order_by('-name')
     context = {'wine_list':wine_list}
-    return render(request, 'reviews/wine_list.html', context)
+    return render(request, 'reviews/course_list.html', context)
 
 
 def wine_detail(request, wine_id):
     wine = get_object_or_404(Course, pk=wine_id)
     form = ReviewForm()
-    return render(request, 'reviews/wine_detail.html', {'wine': wine, 'form': form})
+    return render(request, 'reviews/course_detail.html', {'wine': wine, 'form': form})
 
 @login_required
 def add_review(request, wine_id):
@@ -53,7 +53,7 @@ def add_review(request, wine_id):
         # user hits the Back button.
         return HttpResponseRedirect(reverse('reviews:wine_detail', args=(wine.id,)))
     
-    return render(request, 'reviews/wine_detail.html', {'wine': wine, 'form': form})
+    return render(request, 'reviews/course_detail.html', {'wine': wine, 'form': form})
     
 
 def user_review_list(request, username=None):
