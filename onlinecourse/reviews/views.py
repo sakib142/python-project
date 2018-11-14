@@ -21,7 +21,7 @@ def review_detail(request, review_id):
     return render(request, 'reviews/review_detail.html', {'review': review})
 
 
-def wine_list(request):
+def course_list(request):
     wine_list = Course.objects.order_by('-name')
     context = {'wine_list':wine_list}
     return render(request, 'reviews/course_list.html', context)
